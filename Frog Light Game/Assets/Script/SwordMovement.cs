@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponRotation : MonoBehaviour
+public class SwordMovement : MonoBehaviour
 {
     // Variables
     public Camera cam;
@@ -25,6 +25,6 @@ public class WeaponRotation : MonoBehaviour
         float Angle = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
 
         if(Player.position == transform.position)
-            rb.rotation = Angle;
+            rb.rotation = Angle - 90;
     }
 }
