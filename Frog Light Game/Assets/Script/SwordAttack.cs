@@ -7,14 +7,26 @@ public class SwordAttack : MonoBehaviour
 
     // Variables
 
-    public Rigidbody2D rb; 
+    private Animator Ani;
+
+    private double Cooldown;
+
+    void Start()
+    {
+        // Assigns Animator to the Variable
+        Ani = GetComponent<Animator>();
+    }
 
     void Update()
     {
-        // When mouse is clicked write "Sword Swing"
-        if(Input.GetMouseButtonDown(0))
+        if(Cooldown <= Time.time)
         {
-            Debug.Log("Sword Swing");
+            // When mouse is clicked activate Attack Amination
+            if(Input.GetMouseButtonDown(0))
+            {
+                Ani.SetTrigger("LeftClickTrigger");
+                Cooldown = Time.time + 0.5;
+            }
         }
     }
 }
