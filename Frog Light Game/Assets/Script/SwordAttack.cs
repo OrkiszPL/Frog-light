@@ -9,7 +9,8 @@ public class SwordAttack : MonoBehaviour
 
     private Animator Ani;
 
-    private double Cooldown;
+    private float Cooldown;
+    public bool isStabbing;
 
     void Start()
     {
@@ -19,14 +20,25 @@ public class SwordAttack : MonoBehaviour
 
     void Update()
     {
+        
         if(Cooldown <= Time.time)
         {
-            // When mouse is clicked activate Attack Amination
+            // When mouse is clicked activate Attack Amination and starts a cooldown
             if(Input.GetMouseButtonDown(0))
             {
                 Ani.SetTrigger("LeftClickTrigger");
-                Cooldown = Time.time + 0.5;
+                Cooldown = Time.time + 0.3f;
+                
+                // Start the damage function
+                StartCoroutine(DealDamage());
             }
         }
+    }
+
+    IEnumerator DealDamage()
+    {
+        isStabbing = true;
+        yield return new WaitForSeconds(0.1f);
+        isStabbing = false;
     }
 }
