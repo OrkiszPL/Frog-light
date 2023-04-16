@@ -19,7 +19,7 @@ public class EnemyAttack : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            script.speed = 0f;
+            script.Speed = 0f;
         }
     }
 
@@ -27,7 +27,7 @@ public class EnemyAttack : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            script.speed = 0f;
+            script.Speed = 0f;
             anim.SetTrigger("Animatable");
         }
     }
@@ -36,7 +36,7 @@ public class EnemyAttack : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            script.speed = 3f;
+            script.Speed = 0.1f;
         }
     }
 }

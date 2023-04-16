@@ -4,7 +4,6 @@ public class EnemyScript : MonoBehaviour
 {
     // Variables
 
-    public float speed = 3f;
     public Transform target;
     public int HP;
     public float Speed;
@@ -22,12 +21,11 @@ public class EnemyScript : MonoBehaviour
             Destroy(gameObject);
         }
         RotateTowardsTarget();
-        rb.velocity = transform.up * speed;
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = transform.up * speed;
+        rb.velocity = transform.up * Speed;
     }
 
     void RotateTowardsTarget()
