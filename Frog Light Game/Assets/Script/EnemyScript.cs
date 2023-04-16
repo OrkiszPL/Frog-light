@@ -6,25 +6,13 @@ public class EnemyScript : MonoBehaviour
 {
     // Variables
 
+    public Transform target;
     public int HP;
-
-    SwordAttack SwordScript;
-    [SerializeField] GameObject Sword;
+    public Rigidbody2D rb;
 
     private void Awake()
     {
-        SwordScript = Sword.GetComponent<SwordAttack>();
-    }
-
-    private void OnTriggerEnter2D(Collider2D other) 
-    {
-        if (other.transform.tag == "Weapon")
-        {
-            if (SwordScript.isStabbing == true)
-            {
-                HP = HP - 50;
-            }
-        }
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -33,5 +21,19 @@ public class EnemyScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        RotateTowardsTarget();
+    }
+
+    private void FixedUpdate()
+    {
+        rb.velocity = transform.up * 3f;
+    }
+
+    void RotateTowardsTarget()
+    {
+        Vector2 targetDirection = target.position - transform.position;
+        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90f;
+        Quaternion rot = Quaternion.Euler(new Vector3(0, 0, angle));
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, rot, 0.025f);
     }
 }

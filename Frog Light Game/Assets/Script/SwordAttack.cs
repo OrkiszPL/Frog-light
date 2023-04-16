@@ -9,9 +9,16 @@ public class SwordAttack : MonoBehaviour
 
     private Animator Ani;
 
+    EnemyScript enemy;
+
+    [SerializeField] GameObject enemyObject;
     private float Cooldown;
     public bool isStabbing;
 
+    private void Awake()
+    {
+        enemy = enemyObject.GetComponent<EnemyScript>();
+    }
     void Start()
     {
         // Assigns Animator to the Variable
@@ -42,4 +49,14 @@ public class SwordAttack : MonoBehaviour
         isStabbing = false;
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.transform.tag == "Enemy")
+        {
+            if (isStabbing == true)
+            {
+                enemy.HP = enemy.HP - 50;
+            }
+        }
+    }
 }
