@@ -8,11 +8,22 @@ public class EnemyScript : MonoBehaviour
 
     public int HP;
 
+    SwordAttack SwordScript;
+    [SerializeField] GameObject Sword;
+
+    private void Awake()
+    {
+        SwordScript = Sword.GetComponent<SwordAttack>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if (other.transform.tag == "Weapon")
         {
-            HP = HP - 50;
+            if (SwordScript.isStabbing == true)
+            {
+                HP = HP - 50;
+            }
         }
     }
 }
