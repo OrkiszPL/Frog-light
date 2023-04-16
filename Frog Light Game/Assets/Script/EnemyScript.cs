@@ -8,7 +8,7 @@ public class EnemyScript : MonoBehaviour
 
     public Transform target;
     public int HP;
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
 
     private void Awake()
     {

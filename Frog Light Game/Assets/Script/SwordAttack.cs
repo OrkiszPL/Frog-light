@@ -7,7 +7,7 @@ public class SwordAttack : MonoBehaviour
 
     // Variables
 
-    private Animator Ani;
+    public Animator Ani;
 
     EnemyScript enemy;
 
@@ -22,8 +22,7 @@ public class SwordAttack : MonoBehaviour
     }
     void Start()
     {
-        // Assigns Animator to the Variable
-        Ani = GetComponent<Animator>();
+
     }
 
     void Update()
@@ -35,7 +34,7 @@ public class SwordAttack : MonoBehaviour
             if(Input.GetMouseButtonDown(0))
             {
                 Ani.SetTrigger("LeftClickTrigger");
-                Cooldown = Time.time + 0.3f;
+                Cooldown = Time.time + 0.15f;
                 
                 // Start the damage function
                 StartCoroutine(DealDamage());
