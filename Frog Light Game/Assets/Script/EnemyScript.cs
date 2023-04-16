@@ -27,7 +27,7 @@ public class EnemyScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = transform.up * Speed;
+        rb.velocity = transform.up * speed;
     }
 
     void RotateTowardsTarget()
