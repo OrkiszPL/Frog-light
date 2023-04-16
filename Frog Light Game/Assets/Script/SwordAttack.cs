@@ -14,6 +14,7 @@ public class SwordAttack : MonoBehaviour
     [SerializeField] GameObject enemyObject;
     private float Cooldown;
     public bool isStabbing;
+    public GameObject Blood;
 
     private void Awake()
     {
@@ -56,6 +57,8 @@ public class SwordAttack : MonoBehaviour
             if (isStabbing == true)
             {
                 enemy.HP = enemy.HP - 50;
+                GameObject reference = Instantiate(Blood, enemyObject.transform.position, enemyObject.transform.rotation);
+                Destroy(reference, 0.5f);
             }
         }
     }
