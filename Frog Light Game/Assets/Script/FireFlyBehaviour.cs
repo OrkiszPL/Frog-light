@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FireFlyBehaviour : MonoBehaviour
 {
+    //Variables
     public bool isRight = true;
     public Rigidbody2D rb;
     public bool isUp;
@@ -12,20 +13,24 @@ public class FireFlyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Starting Coroutine
         StartCoroutine(Direction_Left_Right());
         StartCoroutine(Direction_Up_Down());
         StartCoroutine(willMove());
+        //Adding Component to the variable
         rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        //Movement Script
         Movement();
     }
 
     IEnumerator Direction_Left_Right()
     {
+        //Setting the direction in which the firefly moves (left & right) after few random seconds
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(2f, 3f));
@@ -44,6 +49,7 @@ public class FireFlyBehaviour : MonoBehaviour
 
     IEnumerator Direction_Up_Down()
     {
+        //Setting the direction in which the firefly moves (up & down) after few random seconds
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(0.2f, 0.8f));
@@ -61,6 +67,7 @@ public class FireFlyBehaviour : MonoBehaviour
 
     IEnumerator willMove()
     {
+        //Stop the movement of the firefly after a few random seconds for realistic look
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(5f, 10f));
@@ -72,9 +79,11 @@ public class FireFlyBehaviour : MonoBehaviour
 
     void Movement()
     {
+        //Checking the boolean and setting the movement direction (left & right)
         if (isRight == true && noMovement == false)
         {
             rb.velocity = new Vector2(Random.Range(0.5f, 1f), rb.velocity.y);
+            //Checking the boolean and setting the movement direction (up & down)
             if (isUp == true)
             {
                 rb.velocity = new Vector2(rb.velocity.x, Random.Range(0.5f, 1f));
@@ -87,6 +96,7 @@ public class FireFlyBehaviour : MonoBehaviour
         else if (isRight == false && noMovement == false)
         {
             rb.velocity = new Vector2(Random.Range(0.5f, 1f) * -1f, rb.velocity.y);
+            //Checking the boolean and setting the movement direction (left & right)
             if (isUp == true)
             {
                 rb.velocity = new Vector2(rb.velocity.x, Random.Range(0.5f, 1f));
@@ -96,7 +106,7 @@ public class FireFlyBehaviour : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, Random.Range(0.5f, 1f) * -1f);
             }
         }
-        else if (noMovement == true)
+        else if (noMovement == true)  //Checking the boolean and setting the movement to zero
         {
             rb.velocity = new Vector2(0f, 0f);
         }
