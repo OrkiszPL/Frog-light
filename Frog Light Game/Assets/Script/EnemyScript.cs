@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
     // Variables
 
+    public float speed = 3f;
     public Transform target;
     public int HP;
     public float Speed;
@@ -23,6 +22,7 @@ public class EnemyScript : MonoBehaviour
             Destroy(gameObject);
         }
         RotateTowardsTarget();
+        rb.velocity = transform.up * speed;
     }
 
     private void FixedUpdate()
