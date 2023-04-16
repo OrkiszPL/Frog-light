@@ -8,6 +8,7 @@ public class EnemyScript : MonoBehaviour
 
     public Transform target;
     public int HP;
+    public float Speed;
     private Rigidbody2D rb;
 
     private void Awake()
@@ -26,7 +27,7 @@ public class EnemyScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = transform.up * 3f;
+        rb.velocity = transform.up * Speed;
     }
 
     void RotateTowardsTarget()
