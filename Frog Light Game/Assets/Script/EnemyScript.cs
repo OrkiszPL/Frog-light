@@ -26,4 +26,12 @@ public class EnemyScript : MonoBehaviour
             }
         }
     }
+
+    private void Update()
+    {
+        if (HP <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }

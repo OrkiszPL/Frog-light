@@ -19,6 +19,8 @@ public class FireFlyBehaviour : MonoBehaviour
         StartCoroutine(willMove());
         //Adding Component to the variable
         rb = GetComponent<Rigidbody2D>();
+        //Destroy it after a random seconds
+        Destroy(gameObject, Random.Range(10f, 20f));
     }
 
     // Update is called once per frame

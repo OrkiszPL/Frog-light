@@ -4,50 +4,45 @@ using UnityEngine;
 
 public class FireflySpawning : MonoBehaviour
 {
-    //Variables
+    public GameObject objectPrefab; // The object to spawn
+    public int numObjects = 25; // Number of objects to spawn
+    public Vector2 spawnArea = new Vector2(10f, 10f); // The area within which objects will be spawned
+    public float respawnTime = 2f; // Time in seconds before a new object is respawned after destruction
 
-    public string tag;
-    public GameObject fly;
-    public int maxSpawn;
-    public GameObject[] flies;
-    public Transform[] cornerPoints;
+    private List<GameObject> spawnedObjects = new List<GameObject>(); // List to keep track of spawned objects
 
-    // Start is called before the first frame update
     void Start()
     {
-        flies = new GameObject[maxSpawn];
-        StartCoroutine(SpawnFlies());
+        SpawnObjects();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    void SpawnObjects()
     {
-        
-    }
-
-    //spawning the fireflies
-    IEnumerator SpawnFlies()
-    {
-        while (true)
+        for (int i = 0; i < numObjects; i++)
         {
-            yield return new WaitForSeconds(0.1f);
-            //Checking how many objects are there (if there is less than 100 then it will add more fireflies to the scene in random position)
-            int currentIndex = 0;
-            foreach (GameObject sample in flies)
+            Vector2 spawnPosition = (Vector2)transform.position + new Vector2(Random.Range(-spawnArea.x, spawnArea.x), Random.Range(-spawnArea.y, spawnArea.y));
+            GameObject spawnedObject = Instantiate(objectPrefab, spawnPosition, Quaternion.identity);
+            spawnedObjects.Add(spawnedObject);
+        }
+    }
+
+    void Update()
+    {
+        for (int i = spawnedObjects.Count - 1; i >= 0; i--)
+        {
+            if (spawnedObjects[i] == null) // If an object is destroyed
             {
-                if (sample == null)
-                {
-                    Vector2 SpawnPosition = new Vector2(Random.Range(cornerPoints[0].position.x, cornerPoints[1].position.x), Random.Range(cornerPoints[1].position.y, cornerPoints[2].position.y)); //Generating a random position for spawning the object
-                    flies[currentIndex] = Instantiate(fly, SpawnPosition, Quaternion.identity);
-                }
-                currentIndex++;
+                spawnedObjects.RemoveAt(i); // Remove it from the list
+                StartCoroutine(RespawnObject()); // Respawn a new object using a coroutine
             }
         }
     }
 
-    IEnumerator destroy()
+    IEnumerator RespawnObject()
     {
-        yield return new WaitForSeconds(Random.Range(15f, 30f));
-
+        yield return new WaitForSeconds(respawnTime); // Wait for the specified respawn time
+        Vector2 spawnPosition = (Vector2)transform.position + new Vector2(Random.Range(-spawnArea.x, spawnArea.x), Random.Range(-spawnArea.y, spawnArea.y));
+        GameObject spawnedObject = Instantiate(objectPrefab, spawnPosition, Quaternion.identity);
+        spawnedObjects.Add(spawnedObject);
     }
 }
