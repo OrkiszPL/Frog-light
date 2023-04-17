@@ -65,7 +65,7 @@ public class SwordAttack : MonoBehaviour
             Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
             foreach (Collider2D enemyCol in enemies)
             {
-                enemyCol.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+                enemyCol.gameObject.GetComponent<EnemyScript>().TakeDamage(damage);
             }
 
     }
