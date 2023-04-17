@@ -66,6 +66,8 @@ public class EnemyScript : MonoBehaviour
         foreach (Collider2D p in player)
         {
             p.GetComponent<PlayerController>().Damage(deal);
+
+            //Play Attack Animation
         }
     }
 
@@ -74,7 +76,7 @@ public class EnemyScript : MonoBehaviour
         while (true)
         {
             DealDamage(Random.Range(5f, 10f));
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.5f);
             DealDamage(0f);
         }
     }
