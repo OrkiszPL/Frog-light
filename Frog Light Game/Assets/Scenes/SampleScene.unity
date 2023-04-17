@@ -224,7 +224,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1a9e357944a0740bcb78c704b4ef1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
   target: {fileID: 1331952995}
   HP: 300
   Speed: 0.1
@@ -930,7 +929,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1708948465}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
