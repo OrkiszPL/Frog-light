@@ -9,12 +9,14 @@ public class Enemy : MonoBehaviour
     public Transform target;
     public float Speed = 2f;
     [SerializeField] private Rigidbody2D rb;
+    public float rotSpeed = 0.1f;
 
     // Start is called before the first frame update
     void Start()
     {
         currentHP = maxHP;
         rb = GetComponent<Rigidbody2D>();
+        rb.isKinematic = false;
     }
 
     // Update is called once per frame
@@ -61,12 +63,12 @@ public class Enemy : MonoBehaviour
         Vector2 targetDirection = target.position - transform.position;
         float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90f;
         Quaternion rot = Quaternion.Euler(new Vector3(0, 0, angle));
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, rot, 0.025f);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, rot, rotSpeed);
     }
 
     void Move()
     {
-        rb.velocity = transform.up * Speed;
+        rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * Speed);
     }
 
     public void GetTarget()
