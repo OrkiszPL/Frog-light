@@ -5,27 +5,24 @@ public class EnemyScript : MonoBehaviour
     // Variables
 
     public Transform target;
-    public int HP;
+    public int maxHP;
+    int currentHP;
     public float Speed;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
 
-    private void Awake()
+    private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        currentHP = maxHP;
     }
 
     private void Update()
     {
-        if (HP <= 0)
-        {
-            Destroy(gameObject);
-        }
         RotateTowardsTarget();
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = transform.up * Speed;
+        Move();
     }
 
     void RotateTowardsTarget()
@@ -35,4 +32,20 @@ public class EnemyScript : MonoBehaviour
         Quaternion rot = Quaternion.Euler(new Vector3(0, 0, angle));
         transform.localRotation = Quaternion.Slerp(transform.localRotation, rot, 0.025f);
     }
+
+    void Move()
+    {
+        rb.velocity = transform.up * Speed;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHP -= damage;
+
+        if (currentHP <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
