@@ -18,6 +18,7 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         currentHP = maxHP;
+        StartCoroutine(DamageDealer());
     }
 
     // Update is called once per frame
@@ -59,17 +60,22 @@ public class EnemyScript : MonoBehaviour
         rb.velocity = new Vector2(targetDirection.x, targetDirection.y).normalized * Speed;
     }
 
-    void DealDamage()
+    void DealDamage(float deal)
     {
         Collider2D[] player = Physics2D.OverlapCircleAll(circle.position, circleRange, targetLayer);
         foreach (Collider2D p in player)
         {
-            p.GetComponent<PlayerController>().Damage(Random.Range(5f, 10f));
+            p.GetComponent<PlayerController>().Damage(deal);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    IEnumerator DamageDealer()
     {
-        /*if(collision.gameObject.)*/
+        while (true)
+        {
+            DealDamage(Random.Range(5f, 10f));
+            yield return new WaitForSeconds(0.2f);
+            DealDamage(0f);
+        }
     }
 }
