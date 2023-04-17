@@ -8,10 +8,7 @@ public class SwordAttack : MonoBehaviour
 
     public Animator Ani;
 
-    /*EnemyScript enemy;*/
-
     [SerializeField] GameObject enemyObject;
-    private float Cooldown;
     public bool isStabbing;
     public GameObject Blood;
     public Transform attackPoint;
@@ -19,15 +16,6 @@ public class SwordAttack : MonoBehaviour
     public LayerMask enemyLayer;
 
     [SerializeField] private int damage = 50;
-
-    private void Awake()
-    {
-       /* enemy = enemyObject.GetComponent<EnemyScript>();*/
-    }
-    void Start()
-    {
-
-    }
 
     void Update()
     {
@@ -38,25 +26,6 @@ public class SwordAttack : MonoBehaviour
             }
     }
 
-/*    IEnumerator DealDamage()
-    {
-        isStabbing = true;
-        yield return new WaitForSeconds(0.1f);
-        isStabbing = false;
-    }*/
-
-    /*private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.transform.tag == "Enemy")
-        {
-            if (isStabbing == true)
-            {
-                enemy.HP = enemy.HP - 50;
-                GameObject reference = Instantiate(Blood, enemyObject.transform.position, enemyObject.transform.rotation);
-                Destroy(reference, 0.5f);
-            }
-        }
-    }*/
 
     void Attack()
     {

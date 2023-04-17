@@ -6,8 +6,13 @@ public class PlayerController : MonoBehaviour
 {
 
     public float Speed;
-    
+    public float currentHealth;
+    public float maxHealth = 150f;
 
+    private void Start()
+    {
+        currentHealth = maxHealth;
+    }
 
     void FixedUpdate()
     {
@@ -39,5 +44,19 @@ public class PlayerController : MonoBehaviour
 
 
         
+    }
+
+    public void Damage(float damageAmount)
+    {
+        currentHealth -= damageAmount;
+
+        if (currentHealth >= 0)
+        {
+            Debug.Log("Player Died !!!");
+
+            //Play Die Animation
+
+            //Load GameOver Panel
+        }
     }
 }
