@@ -8,9 +8,6 @@ public class SwordAttack : MonoBehaviour
 
     public Animator Ani;
 
-    [SerializeField] GameObject enemyObject;
-    public bool isStabbing;
-    public GameObject Blood;
     public Transform attackPoint;
     public float attackRange;
     public LayerMask enemyLayer;
@@ -34,7 +31,7 @@ public class SwordAttack : MonoBehaviour
             Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
             foreach (Collider2D enemyCol in enemies)
             {
-                enemyCol.gameObject.GetComponent<EnemyScript>().TakeDamage(damage);
+                enemyCol.GetComponent<EnemyScript>().TakeDamage(damage);
             }
 
     }

@@ -50,7 +50,9 @@ public class PlayerController : MonoBehaviour
     {
         currentHealth -= damageAmount;
 
-        if (currentHealth >= 0)
+        //Play damage sfx
+
+        if (currentHealth <= 0)
         {
             Debug.Log("Player Died !!!");
 

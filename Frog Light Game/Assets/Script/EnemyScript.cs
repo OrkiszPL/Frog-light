@@ -29,7 +29,7 @@ public class EnemyScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Movement();
+        Movement(true);
     }
 
     public void TakeDamage(int damage)
@@ -51,13 +51,16 @@ public class EnemyScript : MonoBehaviour
         //Disable enemy
     }
 
-    void Movement()
+    public void Movement(bool willMove)
     {
-        Vector2 targetDirection = target.position - transform.position;
-        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90f;
-        Quaternion rot = Quaternion.Euler(new Vector3(0, 0, angle));
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, rot, rotSpeed);
-        rb.velocity = new Vector2(targetDirection.x, targetDirection.y).normalized * Speed;
+        if (willMove == true)
+        {
+            Vector2 targetDirection = target.position - transform.position;
+            float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90f;
+            Quaternion rot = Quaternion.Euler(new Vector3(0, 0, angle));
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, rot, rotSpeed);
+            rb.velocity = new Vector2(targetDirection.x, targetDirection.y).normalized * Speed;
+        }
     }
 
     void DealDamage(float deal)
@@ -75,8 +78,8 @@ public class EnemyScript : MonoBehaviour
     {
         while (true)
         {
-            DealDamage(Random.Range(5f, 10f));
-            yield return new WaitForSeconds(0.5f);
+            DealDamage(Random.Range(1f, 5f));
+            yield return new WaitForSeconds(1f);
             DealDamage(0f);
         }
     }
