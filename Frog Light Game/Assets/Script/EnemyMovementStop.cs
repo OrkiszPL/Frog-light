@@ -4,22 +4,19 @@ using UnityEngine;
 
 public class EnemyMovementStop : MonoBehaviour
 {
-    EnemyScript script;
 
-    public GameObject enemy;
-    float initialSpeed;
+    private Rigidbody2D parentRb;
 
     private void Start()
     {
-        script = enemy.GetComponent<EnemyScript>();
-        initialSpeed = script.Speed;
+        parentRb = transform.parent.GetComponent<Rigidbody2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            script.Movement(false);
+            parentRb.velocity = Vector2.zero;
         }
     }
 
@@ -27,7 +24,7 @@ public class EnemyMovementStop : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            script.Movement(false);
+            parentRb.velocity = Vector2.zero;
         }
     }
 
@@ -35,7 +32,7 @@ public class EnemyMovementStop : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            script.Movement(true);
+            parentRb.velocity = new Vector2(targetDirection.x, targetDirection.y).normalized * Speed;
         }
     }
 
