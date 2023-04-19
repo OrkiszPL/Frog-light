@@ -29,7 +29,7 @@ public class EnemyScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Movement(true);
+        Movement();
     }
 
     public void TakeDamage(int damage)
@@ -48,18 +48,23 @@ public class EnemyScript : MonoBehaviour
 
         //Play die animation instead of this comment
 
-        //Disable enemy
+        Destroy(gameObject);
     }
 
-    public void Movement(bool willMove)
+    public void Movement()
     {
-        if (willMove == true)
+        Collider2D[] col = Physics2D.OverlapCircleAll(transform.position, circleRange, targetLayer);
+        foreach (Collider2D c in col)
         {
-            Vector2 targetDirection = target.position - transform.position;
-            float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90f;
-            Quaternion rot = Quaternion.Euler(new Vector3(0, 0, angle));
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, rot, rotSpeed);
-            rb.velocity = new Vector2(targetDirection.x, targetDirection.y).normalized * Speed;
+            if (c.gameObject.tag == "Player")
+            {
+                Vector2 targetDirection = target.position - transform.position;
+                float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90f;
+                Quaternion rot = Quaternion.Euler(new Vector3(0, 0, angle));
+                transform.localRotation = Quaternion.Slerp(transform.localRotation, rot, rotSpeed);
+                rb.velocity = new Vector2(targetDirection.x, targetDirection.y).normalized * Speed;
+                break;
+            }
         }
     }
 
@@ -79,8 +84,13 @@ public class EnemyScript : MonoBehaviour
         while (true)
         {
             DealDamage(Random.Range(1f, 5f));
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             DealDamage(0f);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, circleRange);
     }
 }

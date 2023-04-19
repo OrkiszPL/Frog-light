@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,10 +9,14 @@ public class PlayerController : MonoBehaviour
     public float Speed;
     public float currentHealth;
     public float maxHealth = 150f;
+    public Image healthBar;
+    public healthBar health;
 
     private void Start()
     {
         currentHealth = maxHealth;
+        health = healthBar.GetComponent<healthBar>();
+        health.SetMaxHealth(maxHealth);
     }
 
     void FixedUpdate()
@@ -49,12 +54,15 @@ public class PlayerController : MonoBehaviour
     public void Damage(float damageAmount)
     {
         currentHealth -= damageAmount;
+        health.setHealth(currentHealth);
 
         //Play damage sfx
 
         if (currentHealth <= 0)
         {
             Debug.Log("Player Died !!!");
+
+            Destroy(gameObject);
 
             //Play Die Animation
 
