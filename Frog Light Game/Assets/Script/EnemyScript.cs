@@ -13,12 +13,14 @@ public class EnemyScript : MonoBehaviour
     public float circleRange;
     public LayerMask targetLayer;
     public Transform circle;
+    public float atkRange;
 
     // Start is called before the first frame update
     void Start()
     {
         currentHP = maxHP;
         StartCoroutine(DamageDealer());
+        Destroy(gameObject, 30f);
     }
 
     // Update is called once per frame
@@ -70,7 +72,7 @@ public class EnemyScript : MonoBehaviour
 
     void DealDamage(float deal)
     {
-        Collider2D[] player = Physics2D.OverlapCircleAll(circle.position, circleRange, targetLayer);
+        Collider2D[] player = Physics2D.OverlapCircleAll(circle.position, atkRange, targetLayer);
         foreach (Collider2D p in player)
         {
             p.GetComponent<PlayerController>().Damage(deal);
@@ -92,5 +94,6 @@ public class EnemyScript : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, circleRange);
+        Gizmos.DrawWireSphere(circle.position, atkRange);
     }
 }
