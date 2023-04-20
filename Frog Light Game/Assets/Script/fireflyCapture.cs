@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class fireflyCapture : MonoBehaviour
 {
-    public Transform[] points;
-    public GameObject player;
-    public PlayerController playerScript;
+    public Transform flyPos;
+    public LineRenderer line;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerScript = player.GetComponent<PlayerController>();
+        
     }
 
     // Update is called once per frame

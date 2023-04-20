@@ -1,51 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FireflySpawning : MonoBehaviour
 {
-    public GameObject objectPrefab; // The object to spawn
-    public int numObjects = 25; // Number of objects to spawn
-    public float respawnTime = 2f; // Time in seconds before a new object is respawned after destruction
-    public Transform[] cornerPoints = new Transform[3];
+    public GameObject objectToSpawn;
+    public float spawnDelay = 1f;
 
-    private List<GameObject> spawnedObjects = new List<GameObject>(); // List to keep track of spawned objects
+    private Camera mainCamera;
 
     void Start()
     {
-        SpawnObjects();
+        mainCamera = Camera.main;
+        InvokeRepeating("SpawnObject", 0f, spawnDelay);
     }
 
-    void SpawnObjects()
+    void SpawnObject()
     {
-        for (int i = 0; i < numObjects; i++)
-        {
-            Vector2 spawnPosition = new Vector2(Random.Range(cornerPoints[0].position.x, cornerPoints[1].position.x), Random.Range(cornerPoints[1].position.y, cornerPoints[2].position.y));
-            GameObject spawnedObject = Instantiate(objectPrefab, spawnPosition, Quaternion.identity);
-            spawnedObjects.Add(spawnedObject);
-        }
-    }
+        Vector2 randomPosition = new Vector2(
+            Random.Range(mainCamera.ViewportToWorldPoint(Vector2.zero).x, mainCamera.ViewportToWorldPoint(Vector2.one).x),
+            Random.Range(mainCamera.ViewportToWorldPoint(Vector2.zero).y, mainCamera.ViewportToWorldPoint(Vector2.one).y)
+        );
 
-    void Update()
-    {
-        for (int i = spawnedObjects.Count - 1; i >= 0; i--)
-        {
-            if (spawnedObjects[i] == null) // If an object is destroyed
-            {
-                spawnedObjects.RemoveAt(i); // Remove it from the list
-                if (gameObject != null) // Check if the script is still attached to a game object
-                {
-                    StartCoroutine(RespawnObject()); // Respawn a new object using a coroutine
-                }
-            }
-        }
-    }
-
-    IEnumerator RespawnObject()
-    {
-        yield return new WaitForSeconds(respawnTime); // Wait for the specified respawn time
-        Vector2 spawnPosition = new Vector2(Random.Range(cornerPoints[0].position.x, cornerPoints[1].position.x), Random.Range(cornerPoints[1].position.y, cornerPoints[2].position.y));
-        GameObject spawnedObject = Instantiate(objectPrefab, spawnPosition, Quaternion.identity);
-        spawnedObjects.Add(spawnedObject);
+        Instantiate(objectToSpawn, randomPosition, Quaternion.identity);
     }
 }

@@ -20,7 +20,7 @@ public class FireFlyBehaviour : MonoBehaviour
         //Adding Component to the variable
         rb = GetComponent<Rigidbody2D>();
         //Destroy it after a random seconds
-        Destroy(gameObject, Random.Range(10f, 20f));
+        Destroy(gameObject, Random.Range(5f, 10f));
     }
 
     // Update is called once per frame
