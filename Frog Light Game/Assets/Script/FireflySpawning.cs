@@ -33,7 +33,10 @@ public class FireflySpawning : MonoBehaviour
             if (spawnedObjects[i] == null) // If an object is destroyed
             {
                 spawnedObjects.RemoveAt(i); // Remove it from the list
-                StartCoroutine(RespawnObject()); // Respawn a new object using a coroutine
+                if (gameObject != null) // Check if the script is still attached to a game object
+                {
+                    StartCoroutine(RespawnObject()); // Respawn a new object using a coroutine
+                }
             }
         }
     }

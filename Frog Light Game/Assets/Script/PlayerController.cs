@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     public float maxHealth = 150f;
     public Image healthBar;
     public healthBar health;
+    public GameObject fly;
+    public LayerMask flyLayer;
+    public float captureRange;
 
     private void Start()
     {
@@ -19,7 +22,7 @@ public class PlayerController : MonoBehaviour
         health.SetMaxHealth(maxHealth);
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         //Movement
 
@@ -46,6 +49,14 @@ public class PlayerController : MonoBehaviour
 
             GetComponent<SpriteRenderer>().flipX = false;
         }
+        if (Input.GetKey(KeyCode.Space))
+        {
+           Collider2D[] flyCol = Physics2D.OverlapCircleAll(transform.position, captureRange, flyLayer);
+           if (flyCol.Length != 0)
+            {
+                fly = flyCol[0].gameObject;
+            }
+        }
 
 
         
@@ -68,5 +79,10 @@ public class PlayerController : MonoBehaviour
 
             //Load GameOver Panel
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, captureRange);
     }
 }
